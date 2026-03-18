@@ -1,0 +1,31 @@
+body {
+  background: linear-gradient(black, darkred);
+  color: white;
+  text-align: center;
+  font-family: Arial;
+}
+
+textarea {
+  width: 80%;
+  height: 100px;
+  margin-top: 10px;
+}
+
+button {
+  margin: 10px;
+  padding: 10px;
+  background: crimson;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+button:hover {
+  background: red;
+}
+
+#heart {
+  font-size: 60px;
+  transition: 0.3s;
+}
