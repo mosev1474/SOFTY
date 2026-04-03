@@ -4,388 +4,663 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>حسونه ـ SONA ❤️</title>
-    <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Tajawal:wght@400;500;700&family=Amiri&family=Great+Vibes&display=swap" rel="stylesheet">
-    <script src="script.js" defer></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none; /* منع تحديد النص */
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #2b0b1a 0%, #4a1528 100%);
+            font-family: 'Tajawal', sans-serif;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* الصفحات */
+        .page {
+            display: none;
+            width: 100%;
+            max-width: 750px;
+            margin: 0 auto;
+            animation: fadeIn 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.96); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* البطاقة الرئيسية */
+        .card {
+            background: rgba(255, 248, 245, 0.98);
+            border-radius: 70px 50px 70px 50px;
+            padding: 2rem 1.8rem;
+            box-shadow: 0 25px 45px rgba(0,0,0,0.3), inset 0 1px 3px rgba(255,255,255,0.6);
+            position: relative;
+            transition: 0.3s;
+            border: 2px solid #ffb7c5;
+        }
+
+        .corner-deco {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.7;
+        }
+        .top-left { top: 15px; left: 20px; }
+        .top-right { top: 15px; right: 20px; }
+        .bottom-left { bottom: 15px; left: 20px; }
+        .bottom-right { bottom: 15px; right: 20px; }
+
+        /* القلب العملاق */
+        .heart-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 55vh;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .giant-heart {
+            position: relative;
+            text-align: center;
+        }
+        .heart-beat {
+            font-size: 12rem;
+            animation: heartbeat 1.2s infinite ease;
+            text-shadow: 0 0 20px #ff3366;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+        .heart-inner-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Amiri', serif;
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 0 6px #c70039;
+            white-space: nowrap;
+            background: rgba(0,0,0,0.2);
+            padding: 5px 12px;
+            border-radius: 40px;
+            pointer-events: none;
+        }
+        @keyframes heartbeat {
+            0% { transform: scale(1); text-shadow: 0 0 0 #ff3366; }
+            50% { transform: scale(1.12); text-shadow: 0 0 25px #ff6699; }
+            100% { transform: scale(1); text-shadow: 0 0 0 #ff3366; }
+        }
+        .click-hint {
+            text-align: center;
+            margin-top: 20px;
+            color: #ffd9e5;
+            font-weight: bold;
+            background: #9e2a4e80;
+            display: inline-block;
+            width: auto;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 8px 20px;
+            border-radius: 60px;
+            backdrop-filter: blur(4px);
+        }
+
+        /* الأضواء */
+        .lights-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+        .light {
+            width: 14px;
+            height: 28px;
+            border-radius: 40%;
+            animation: glow 1s infinite alternate;
+        }
+        .light.red { background: #ff3366; box-shadow: 0 0 6px red; }
+        .light.pink { background: #ff99bb; box-shadow: 0 0 8px #ff99bb; }
+        .light.hotpink { background: #ff69b4; box-shadow: 0 0 10px hotpink; }
+        @keyframes glow {
+            0% { opacity: 0.3; transform: scaleY(0.8);}
+            100% { opacity: 1; transform: scaleY(1.2);}
+        }
+
+        .letter-text {
+            font-family: 'Amiri', serif;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            background: #fff9f2;
+            padding: 20px;
+            border-radius: 48px;
+            color: #4a1e2c;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        /* زر القلب والعداد */
+        .heart-counter {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .heart-btn {
+            background: none;
+            border: none;
+            font-size: 3rem;
+            cursor: pointer;
+            transition: 0.2s;
+            filter: drop-shadow(0 4px 6px #ff99bb);
+        }
+        .heart-btn:active { transform: scale(0.9); }
+        .heart-count { font-size: 1rem; color: #c95a7a; font-weight: bold; margin-top: 5px; }
+
+        /* الفيديو - تم اصلاح الرابط */
+        .video-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            border-radius: 28px;
+            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* كاروسيل */
+        .carousel {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background: #f7cad0;
+            border-radius: 40px;
+            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+        }
+        .carousel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 12px 0 20px;
+        }
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: #ffafc0;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .dot.active {
+            background: #e6395e;
+            width: 28px;
+            border-radius: 12px;
+        }
+
+        .love-timer {
+            background: #ffd9e2;
+            text-align: center;
+            padding: 12px;
+            border-radius: 60px;
+            font-weight: bold;
+            color: #b13b5c;
+            margin: 15px 0;
+        }
+        .love-message-box {
+            background: #ffedf2;
+            border-radius: 45px;
+            padding: 18px;
+            text-align: center;
+            margin: 15px 0;
+        }
+        .section-divider {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            font-size: 1.8rem;
+            margin: 15px 0;
+        }
+        .quote-text {
+            font-size: 1.3rem;
+            background: #ffdce6;
+            padding: 18px;
+            border-radius: 45px;
+            font-family: 'Pacifico', cursive;
+        }
+        .facts-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .fact-bubble {
+            background: #ffeef4;
+            padding: 12px 18px;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+        }
+        .wishes-section {
+            background: rgba(255, 220, 230, 0.7);
+            border-radius: 55px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .wish-item {
+            background: white;
+            border-radius: 45px;
+            padding: 10px;
+            margin: 12px 0;
+            animation: fadeSlide 0.6s both;
+        }
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateX(-20px);}
+            to { opacity: 1; transform: translateX(0);}
+        }
+
+        /* أزرار */
+        .btn {
+            background: linear-gradient(95deg, #ff6f91, #ff9eb5);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+            margin: 20px auto;
+            display: block;
+            box-shadow: 0 6px 0 #9e2a4e;
+        }
+        .btn:active { transform: translateY(2px); box-shadow: 0 3px 0 #9e2a4e;}
+
+        /* نهاية الصفحة */
+        .ending-title, .ending-text {
+            text-align: center;
+            margin: 20px;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        .christmas-message {
+            background: #e6395e30;
+            text-align: center;
+            font-size: 1.5rem;
+            padding: 25px;
+            border-radius: 50px;
+            margin: 30px 0;
+        }
+        .designer-text {
+            text-align: center;
+            margin-top: 30px;
+            color: #ffbfcf;
+        }
+
+        /* ثلج و كونفيتي */
+        #snowfall, #confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+        }
+        .snowflake {
+            position: absolute;
+            color: #ffc0d0;
+            animation: fall linear forwards;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        .confetti {
+            position: absolute;
+            top: -20px;
+            background: red;
+            transform: rotate(25deg);
+            animation: confettiFall linear forwards;
+        }
+        @keyframes confettiFall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1;}
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0;}
+        }
+        @media (max-width: 550px) {
+            .letter-text { font-size: 1rem; }
+            .heart-beat { font-size: 8rem; }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Background Decorations -->
-    <div id="snowfall"></div>
-    <div id="confetti-container"></div>
+<div id="snowfall"></div>
+<div id="confetti-container"></div>
 
-    <!-- Letter Page - Heart (الصفحة الأولى) -->
-    <div id="letter-page" class="page active">
-        <div id="tree-section">
-            <p style="font-family: 'Amiri', serif; font-size: 1.5rem; color: #ffb6c1; margin-bottom: 1.5rem; text-shadow: 0 0 20px rgba(255,105,180,0.5);">❤️ دوسي ع القلب يبت ❤️</p>
-
-            <!-- Heart بدل الشجرة -->
-            <div class="heart-container" id="love-heart">
-                <div class="giant-heart">
-                    <div class="heart-beat">❤️</div>
-                    <div class="heart-inner-text">أنا بحبك</div>
-                </div>
-            </div>
-
-            <p class="click-hint">💗 created by : MOsEV</p>
-        </div>
-
-        <div id="letter-section" class="hidden">
-            <div class="card" style="max-width: 600px;">
-                <span class="corner-deco top-left">❤️</span>
-                <span class="corner-deco top-right">💖</span>
-                <span class="corner-deco bottom-left">💗</span>
-                <span class="corner-deco bottom-right">💓</span>
-
-                <div class="lights-container">
-                    <div class="light red"></div>
-                    <div class="light pink" style="animation-delay: 0.15s;"></div>
-                    <div class="light hotpink" style="animation-delay: 0.3s;"></div>
-                    <div class="light red" style="animation-delay: 0.45s;"></div>
-                    <div class="light pink" style="animation-delay: 0.6s;"></div>
-                    <div class="light hotpink" style="animation-delay: 0.75s;"></div>
-                    <div class="light red" style="animation-delay: 0.9s;"></div>
-                    <div class="light pink" style="animation-delay: 1.05s;"></div>
-                    <div class="light hotpink" style="animation-delay: 1.2s;"></div>
-                </div>
-
-                <p class="letter-text">
-                    ❤️💖💗💓💕💘<br><br>
-                    انا عمري ما حبيت حد زي ما حبيتك ولا كان في دماغي الحب ومكانش في حساباتي اني احب بصراحة بس أما شوفتك وعرفتك لقيت نفسي بحبك من غير ما أفكر مرة ولا اتنين اكتر حاجة مهمة في حياتي هي انتي مش فارق معايا حد في الدنيا غيرك وجودك كلامك نظرتك ليا بس هو ده اللي فارق معايا غير كدا مفيش حاجة في الدنيا تهمني ومستعد اخسر اي حاجة في الدنيا بس تبقي وتفضلي موجودة معايا انتي وحشتيني كل حاجة بينا وحشتني صوتك ضحكتك كل حاجة بتفاصيلها وحشتني اتمني متزعليش مني على اي حاجة عملتها واتمني الأيام الجاية نرجع زي الأول وأحسن انا عاوز أصلح كل حاجة وحشة عملتها ليكي مش عايز اكون في يوم سبب اني اخليكي زعلانه . وكل لحظة جمبك بتساوي الدنيا بالنسبلي انا بحبك وعمري ما حبيت قبلك ولا هيبقي في بعدك ❤️
-                </p>
-
-                <div class="heart-counter">
-                    <p style="color: #ffb6c1; font-size: 0.9rem; margin-bottom: 0.5rem;">💗 دوسي ع القلب يبت  💗</p>
-                    <button class="heart-btn" id="heart-btn">❤️</button>
-                    <p class="heart-count"><span id="heart-count">0</span> Hearts</p>
-                </div>
-
-                <button class="btn" onclick="navigateTo('memories-page')">الي بعدو 💕</button>
+<!-- الصفحة الأولى القلب -->
+<div id="letter-page" class="page active">
+    <div id="tree-section">
+        <p style="font-family: 'Amiri', serif; font-size: 1.5rem; color: #ffb6c1; text-align:center; margin-bottom: 1.5rem;">❤️ دوسي ع القلب يبت ❤️</p>
+        <div class="heart-container" id="love-heart">
+            <div class="giant-heart">
+                <div class="heart-beat">❤️</div>
+                <div class="heart-inner-text">أنا بحبك</div>
             </div>
         </div>
+        <p class="click-hint">💗 created by : MOsEV</p>
     </div>
 
-    <!-- Memories Page -->
-    <div id="memories-page" class="page">
-        <h1 class="memories-title">💗 MY SOUL 💗</h1>
-
-        <div class="video-container">
-            <iframe src="https://youtube.com/shorts/sT_Ki2SaE6U?si=WJZphxE7peCfImw_" title="Our Song" allowfullscreen></iframe>
-        </div>
-
-        <div class="carousel">
-            <img id="carousel-img" src="" alt="Memory">
-        </div>
-
-        <div class="carousel-dots" id="carousel-dots"></div>
-
-        <div class="love-timer" id="love-timer"></div>
-
-        <div class="love-message-box">
-            <p class="love-message" id="love-message">💖 أنتِ أجمل حاجه حصلتلي في حياتي 💖</p>
-        </div>
-
-        <div class="section-divider">
-            <span>❤️</span>
-            <span>💖</span>
-            <span>💗</span>
-            <span>💓</span>
-            <span>💕</span>
-        </div>
-
-        <div class="quote-section">
-            <p class="quote-text">مش قادر انسي اي لحظه بينا وله اي حاجه عشتها معاكي  💘</p>
-        </div>
-
-        <div class="facts-section">
-            <div class="fact-bubble">
-                <span class="fact-icon">🫦</span>
-                <span class="fact-text">i love you sona</span>
+    <div id="letter-section" class="hidden">
+        <div class="card">
+            <span class="corner-deco top-left">❤️</span>
+            <span class="corner-deco top-right">💖</span>
+            <span class="corner-deco bottom-left">💗</span>
+            <span class="corner-deco bottom-right">💓</span>
+            <div class="lights-container">
+                <div class="light red"></div><div class="light pink"></div><div class="light hotpink"></div>
+                <div class="light red"></div><div class="light pink"></div><div class="light hotpink"></div>
+                <div class="light red"></div><div class="light pink"></div><div class="light hotpink"></div>
             </div>
-            <div class="fact-bubble">
-                <span class="fact-icon">💖</span>
-                <span class="fact-text">ربنا يخليكي ليا ينور عيني</span>
+            <p class="letter-text">
+                ❤️💖💗💓💕💘<br><br>
+                انا عمري ما حبيت حد زي ما حبيتك ولا كان في دماغي الحب ومكانش في حساباتي اني احب بصراحة بس أما شوفتك وعرفتك لقيت نفسي بحبك من غير ما أفكر مرة ولا اتنين اكتر حاجة مهمة في حياتي هي انتي مش فارق معايا حد في الدنيا غيرك وجودك كلامك نظرتك ليا بس هو ده اللي فارق معايا غير كدا مفيش حاجة في الدنيا تهمني ومستعد اخسر اي حاجة في الدنيا بس تبقي وتفضلي موجودة معايا انتي وحشتيني كل حاجة بينا وحشتني صوتك ضحكتك كل حاجة بتفاصيلها وحشتني اتمني متزعليش مني على اي حاجة عملتها واتمني الأيام الجاية نرجع زي الأول وأحسن انا عاوز أصلح كل حاجة وحشة عملتها ليكي مش عايز اكون في يوم سبب اني اخليكي زعلانه . وكل لحظة جمبك بتساوي الدنيا بالنسبلي انا بحبك وعمري ما حبيت قبلك ولا هيبقي في بعدك ❤️
+            </p>
+            <div class="heart-counter">
+                <p style="color: #ffb6c1;">💗 دوسي ع القلب يبت 💗</p>
+                <button class="heart-btn" id="heart-btn">❤️</button>
+                <p class="heart-count"><span id="heart-count">0</span> Hearts</p>
             </div>
-            <div class="fact-bubble">
-                <span class="fact-icon">💗</span>
-                <span class="fact-text">كمان ٥ سنين تكوني احلا دكتوره قانون 😍😍</span>
-            </div>
-            <div class="fact-bubble">
-                <span class="fact-icon">💓</span>
-                <span class="fact-text">فرحتي من فرحتك يحس🫶🏻</span>
-            </div>
+            <button class="btn" onclick="navigateTo('memories-page')">الي بعدو 💕</button>
         </div>
+    </div>
+</div>
 
-        <div class="wishes-section">
-            <h3 class="wishes-title">💕 امواههههه يحسونه 😍💋💋 💕</h3>
-            <div class="wish-item" style="animation-delay: 0.1s;">
-                <span class="wish-icon">😍</span>
-                <span class="wish-text">بحبك </span>
-            </div>
-            <div class="wish-item" style="animation-delay: 0.2s;">
-                <span class="wish-icon">🫦</span>
-                <span class="wish-text">وبموت فيكي</span>
-            
+<!-- صفحة الذكريات مع الفيديو المصلح -->
+<div id="memories-page" class="page">
+    <h1 class="memories-title" style="text-align:center; color:#ffe2eb;">💗 MY SOUL 💗</h1>
 
-        <button class="btn" onclick="navigateTo('ending-page')">التالي 💖</button>
+    <!-- الرابط تم تعديله ليصبح embed يعمل 100% -->
+    <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/sT_Ki2SaE6U" title="Our Song" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
 
-    <!-- Ending Page -->
-    <div id="ending-page" class="page">
-        <h1 class="ending-title" id="ending-title" style="opacity: 0;">💖 ميراج حبيبتي 💖</h1>
-        <p class="ending-text" id="ending-text-1" style="opacity: 0;">مهما الدنيا ودتنا فين...</p>
-        <p class="ending-text" id="ending-text-2" style="opacity: 0;">هتفضلي إنتي أغلى حد عندي،</p>
-        <p class="ending-text" id="ending-text-3" style="opacity: 0;">أماني وبيتي اللي برتاح فيه 💗</p>
+    <div class="carousel">
+        <img id="carousel-img" src="" alt="Memory">
+    </div>
+    <div class="carousel-dots" id="carousel-dots"></div>
 
-        <div class="christmas-message" id="christmas-msg" style="opacity: 0;">
-            <p>💕 I Love You, My Love 💕</p>
-        </div>
-
-        <button class="btn btn-red" id="replay-btn" style="opacity: 0; max-width: 200px;" onclick="replay()">🔄 من البداية</button>
-
-        <p class="designer-text" id="designer-text" style="opacity: 0;">💗 Designed with love by Loly 💗</p>
+    <div class="love-timer" id="love-timer"></div>
+    <div class="love-message-box">
+        <p class="love-message" id="love-message">💖 أنتِ أجمل حاجه حصلتلي في حياتي 💖</p>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Heart click handler (بدل الشجرة)
-            const heartContainer = document.getElementById('love-heart');
-            const treeSection = document.getElementById('tree-section');
-            const letterSection = document.getElementById('letter-section');
+    <div class="section-divider"><span>❤️</span><span>💖</span><span>💗</span><span>💓</span><span>💕</span></div>
+    <div class="quote-section">
+        <p class="quote-text">مش قادر انسي اي لحظه بينا وله اي حاجه عشتها معاكي 💘</p>
+    </div>
 
-            if (heartContainer) {
-                heartContainer.addEventListener('click', function() {
-                    treeSection.classList.add('hidden');
-                    letterSection.classList.remove('hidden');
-                    startConfetti(30);
-                });
-            }
+    <div class="facts-section">
+        <div class="fact-bubble"><span class="fact-icon">🫦</span><span class="fact-text">i love you sona</span></div>
+        <div class="fact-bubble"><span class="fact-icon">💖</span><span class="fact-text">ربنا يخليكي ليا ينور عيني</span></div>
+        <div class="fact-bubble"><span class="fact-icon">💗</span><span class="fact-text">كمان ٥ سنين تكوني احلا دكتوره قانون 😍</span></div>
+        <div class="fact-bubble"><span class="fact-icon">💓</span><span class="fact-text">فرحتي من فرحتك يحس🫶🏻</span></div>
+    </div>
 
-            if (typeof initCarousel === 'function') initCarousel();
-            if (typeof startLoveTimer === 'function') startLoveTimer();
-            if (typeof startSnowfall === 'function') startSnowfall();
+    <div class="wishes-section">
+        <h3 class="wishes-title">💕 امواههههه يحسونه 😍💋💋 💕</h3>
+        <div class="wish-item"><span class="wish-icon">😍</span><span class="wish-text">بحبك</span></div>
+        <div class="wish-item"><span class="wish-icon">🫦</span><span class="wish-text">وبموت فيكي</span></div>
+    </div>
 
-            // Heart button functionality
-            const heartBtn = document.getElementById('heart-btn');
-            if (heartBtn) {
-                let heartCount = localStorage.getItem('heartCount') ? parseInt(localStorage.getItem('heartCount')) : 0;
-                const heartCountSpan = document.getElementById('heart-count');
-                if (heartCountSpan) heartCountSpan.innerText = heartCount;
+    <button class="btn" onclick="navigateTo('ending-page')">التالي 💖</button>
+</div>
 
-                heartBtn.addEventListener('click', function() {
-                    heartCount++;
-                    if (heartCountSpan) heartCountSpan.innerText = heartCount;
-                    localStorage.setItem('heartCount', heartCount);
-                    for (let i = 0; i < 10; i++) {
-                        createFloatingHeart(heartBtn);
-                    }
-                });
-            }
+<!-- صفحة النهاية -->
+<div id="ending-page" class="page">
+    <h1 class="ending-title" id="ending-title" style="opacity: 0;">💖 ميراج حبيبتي 💖</h1>
+    <p class="ending-text" id="ending-text-1" style="opacity: 0;">مهما الدنيا ودتنا فين...</p>
+    <p class="ending-text" id="ending-text-2" style="opacity: 0;">هتفضلي إنتي أغلى حد عندي،</p>
+    <p class="ending-text" id="ending-text-3" style="opacity: 0;">أماني وبيتي اللي برتاح فيه 💗</p>
+    <div class="christmas-message" id="christmas-msg" style="opacity: 0;"><p>💕 I Love You, My Love 💕</p></div>
+    <button class="btn btn-red" id="replay-btn" style="opacity: 0; max-width: 200px;" onclick="replay()">🔄 من البداية</button>
+    <p class="designer-text" id="designer-text" style="opacity: 0;">💗 Designed with love by Loly 💗</p>
+</div>
 
-            if (document.getElementById('ending-page')) {
-                setTimeout(function() {
-                    animateEndingPage();
-                }, 500);
-            }
-        });
-
-        function navigateTo(pageId) {
-            document.querySelectorAll('.page').forEach(function(page) {
-                page.classList.remove('active');
-            });
-
-            const targetPage = document.getElementById(pageId);
-            if (targetPage) {
-                targetPage.classList.add('active');
-                if (pageId === 'ending-page') {
-                    startConfetti(40);
-                    setTimeout(function() {
-                        animateEndingPage();
-                    }, 300);
-                }
-                window.scrollTo(0, 0);
-            }
-        }
-
-        function replay() {
-            document.querySelectorAll('.page').forEach(function(page) {
-                page.classList.remove('active');
-            });
-            const letterPage = document.getElementById('letter-page');
-            if (letterPage) {
-                letterPage.classList.add('active');
-                const treeSection = document.getElementById('tree-section');
-                const letterSection = document.getElementById('letter-section');
-                if (treeSection) treeSection.classList.remove('hidden');
-                if (letterSection) letterSection.classList.add('hidden');
-            }
-            window.scrollTo(0, 0);
-        }
-
-        function animateEndingPage() {
-            var elements = ['ending-title', 'ending-text-1', 'ending-text-2', 'ending-text-3', 'christmas-msg', 'replay-btn', 'designer-text'];
-            elements.forEach(function(id, index) {
-                var element = document.getElementById(id);
-                if (element) {
-                    setTimeout(function() {
-                        element.style.transition = 'opacity 0.8s ease';
-                        element.style.opacity = '1';
-                    }, index * 400);
-                }
+<script>
+    (function(){
+        // القلب لاظهار الرسالة
+        const heartContainer = document.getElementById('love-heart');
+        const treeSection = document.getElementById('tree-section');
+        const letterSection = document.getElementById('letter-section');
+        if(heartContainer){
+            heartContainer.addEventListener('click', function(){
+                treeSection.classList.add('hidden');
+                letterSection.classList.remove('hidden');
+                startConfetti(35);
             });
         }
 
-        function createFloatingHeart(button) {
-            var heart = document.createElement('div');
-            heart.innerHTML = '❤️';
-            heart.style.position = 'fixed';
-            heart.style.left = button.getBoundingClientRect().left + button.offsetWidth / 2 + 'px';
-            heart.style.top = button.getBoundingClientRect().top + 'px';
-            heart.style.fontSize = '1.5rem';
-            heart.style.pointerEvents = 'none';
-            heart.style.zIndex = '1000';
-            heart.style.animation = 'floatHeart 1s ease-out forwards';
-            document.body.appendChild(heart);
-            setTimeout(function() { heart.remove(); }, 1000);
+        // عداد القلب
+        const heartBtn = document.getElementById('heart-btn');
+        if(heartBtn){
+            let heartCount = localStorage.getItem('heartCount') ? parseInt(localStorage.getItem('heartCount')) : 0;
+            const heartCountSpan = document.getElementById('heart-count');
+            if(heartCountSpan) heartCountSpan.innerText = heartCount;
+            heartBtn.addEventListener('click', function(e){
+                e.stopPropagation();
+                heartCount++;
+                if(heartCountSpan) heartCountSpan.innerText = heartCount;
+                localStorage.setItem('heartCount', heartCount);
+                for(let i=0;i<12;i++) createFloatingHeart(heartBtn);
+            });
         }
 
-        var styleSheet = document.createElement('style');
-        styleSheet.textContent = '@keyframes floatHeart { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-100px) scale(1.5); opacity: 0; } }';
-        document.head.appendChild(styleSheet);
-
-        function startSnowfall() {
-            var container = document.getElementById('snowfall');
-            if (!container) return;
-            function createSnowflake() {
-                var snowflake = document.createElement('div');
-                snowflake.className = 'snowflake';
-                snowflake.innerHTML = ['❤️', '💖', '💗', '💓'][Math.floor(Math.random() * 4)];
-                snowflake.style.left = Math.random() * 100 + '%';
-                snowflake.style.fontSize = 0.8 + Math.random() * 1 + 'rem';
-                snowflake.style.opacity = 0.3 + Math.random() * 0.5;
-                snowflake.style.animationDuration = 5 + Math.random() * 5 + 's';
-                snowflake.style.animationDelay = Math.random() * 5 + 's';
-                container.appendChild(snowflake);
-                setTimeout(function() { snowflake.remove(); }, 10000);
-            }
-            setInterval(createSnowflake, 300);
-        }
-
-        function startConfetti(count) {
-            count = count || 30;
-            var container = document.getElementById('confetti-container');
-            if (!container) return;
-            for (var i = 0; i < count; i++) {
-                var confetti = document.createElement('div');
-                confetti.className = 'confetti';
-                confetti.style.left = Math.random() * 100 + '%';
-                confetti.style.backgroundColor = ['#ff6b6b', '#ff8c8c', '#ffb6c1', '#ff69b4'][Math.floor(Math.random() * 4)];
-                confetti.style.width = 5 + Math.random() * 10 + 'px';
-                confetti.style.height = 8 + Math.random() * 12 + 'px';
-                confetti.style.animationDuration = 2 + Math.random() * 3 + 's';
-                confetti.style.animationDelay = Math.random() * 2 + 's';
-                container.appendChild(confetti);
-                setTimeout(function() { confetti.remove(); }, 5000);
-            }
-        }
-
-        var CAROUSEL_IMAGES = [
+        // كاروسيل
+        const CAROUSEL_IMAGES = [
             "https://i.imgur.com/JpGzY5D.jpeg",
             "https://i.imgur.com/rR3xT4q.jpeg",
             "https://i.imgur.com/ABC123D.jpeg",
             "https://i.imgur.com/EFG456H.jpeg"
         ];
-
-        var currentImageIndex = 0;
-        var loveTimerInterval = null;
-
-        function initCarousel() {
-            var carouselImg = document.getElementById('carousel-img');
-            var dotsContainer = document.getElementById('carousel-dots');
-            if (!carouselImg || !dotsContainer) return;
-            dotsContainer.innerHTML = '';
-            CAROUSEL_IMAGES.forEach(function(_, index) {
-                var dot = document.createElement('div');
+        let currentImageIndex = 0;
+        function initCarousel(){
+            const imgEl = document.getElementById('carousel-img');
+            const dotsDiv = document.getElementById('carousel-dots');
+            if(!imgEl || !dotsDiv) return;
+            dotsDiv.innerHTML = '';
+            CAROUSEL_IMAGES.forEach((_,idx)=>{
+                const dot = document.createElement('div');
                 dot.classList.add('dot');
-                if (index === 0) dot.classList.add('active');
-                dot.addEventListener('click', function() {
-                    currentImageIndex = index;
-                    updateCarouselImage();
+                if(idx===0) dot.classList.add('active');
+                dot.addEventListener('click',()=>{
+                    currentImageIndex = idx;
+                    updateCarouselImage(imgEl);
                     updateDots();
                 });
-                dotsContainer.appendChild(dot);
+                dotsDiv.appendChild(dot);
             });
-            if (CAROUSEL_IMAGES.length > 0) {
-                carouselImg.src = CAROUSEL_IMAGES[0];
-            }
-            setInterval(function() {
-                if (document.getElementById('memories-page').classList.contains('active')) {
-                    currentImageIndex = (currentImageIndex + 1) % CAROUSEL_IMAGES.length;
-                    updateCarouselImage();
+            if(CAROUSEL_IMAGES.length) imgEl.src = CAROUSEL_IMAGES[0];
+            setInterval(()=>{
+                if(document.getElementById('memories-page') && document.getElementById('memories-page').classList.contains('active')){
+                    currentImageIndex = (currentImageIndex+1) % CAROUSEL_IMAGES.length;
+                    updateCarouselImage(imgEl);
                     updateDots();
                 }
-            }, 5000);
+            },5000);
         }
-
-        function updateCarouselImage() {
-            var carouselImg = document.getElementById('carousel-img');
-            if (carouselImg && CAROUSEL_IMAGES[currentImageIndex]) {
-                carouselImg.style.opacity = '0';
-                setTimeout(function() {
-                    carouselImg.src = CAROUSEL_IMAGES[currentImageIndex];
-                    carouselImg.style.opacity = '1';
-                }, 200);
-            }
+        function updateCarouselImage(imgEl){
+            if(!imgEl) return;
+            imgEl.style.opacity = '0';
+            setTimeout(()=>{
+                imgEl.src = CAROUSEL_IMAGES[currentImageIndex];
+                imgEl.style.opacity = '1';
+            },150);
         }
-
-        function updateDots() {
-            var dots = document.querySelectorAll('.dot');
-            dots.forEach(function(dot, index) {
-                if (index === currentImageIndex) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
+        function updateDots(){
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((dot,i)=>{
+                if(i===currentImageIndex) dot.classList.add('active');
+                else dot.classList.remove('active');
             });
         }
 
-        function startLoveTimer() {
-            var loveTimerElement = document.getElementById('love-timer');
-            if (!loveTimerElement) return;
-            var startDate = new Date(2024, 0, 1);
-            function updateTimer() {
-                var now = new Date();
-                var diff = now - startDate;
-                var days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                var hours = Math.floor((diff % 86400000) / 3600000);
-                var minutes = Math.floor((diff % 3600000) / 60000);
-                loveTimerElement.innerHTML = '💖 ' + days + ' يوم ❤️ ' + hours + ' ساعة 💗 ' + minutes + ' دقيقة من الحب 💖';
+        // مؤقت الحب
+        let loveTimerInterval = null;
+        function startLoveTimer(){
+            const timerEl = document.getElementById('love-timer');
+            if(!timerEl) return;
+            const startDate = new Date(2024,0,1);
+            function update(){
+                const now = new Date();
+                const diff = now - startDate;
+                const days = Math.floor(diff/(1000*60*60*24));
+                const hours = Math.floor((diff % 86400000)/3600000);
+                const minutes = Math.floor((diff % 3600000)/60000);
+                timerEl.innerHTML = `💖 ${days} يوم ❤️ ${hours} ساعة 💗 ${minutes} دقيقة من الحب 💖`;
             }
-            updateTimer();
-            if (loveTimerInterval) clearInterval(loveTimerInterval);
-            loveTimerInterval = setInterval(updateTimer, 60000);
+            update();
+            if(loveTimerInterval) clearInterval(loveTimerInterval);
+            loveTimerInterval = setInterval(update,60000);
         }
 
-        var loveMessages = [
-            "💖 أنتِ أجمل شيء حصل في حياتي 💖",
-            "💗 كل يوم بحبك أكتر من اللي قبله 💗",
-            "💓 وجودك في حياتي هو أجمل هدية 💓",
-            "❤️ بحبك لدرجة إني مش قادر أوصفها ❤️",
-            "💕 إنتي الحب اللي كنت بدور عليه 💕",
-            "💘 عمري ما حسيت بالأمان غير معاكي 💘"
-        ];
-
-        setInterval(function() {
-            var messageElement = document.getElementById('love-message');
-            if (messageElement && document.getElementById('memories-page').classList.contains('active')) {
-                var randomIndex = Math.floor(Math.random() * loveMessages.length);
-                messageElement.style.opacity = '0';
-                setTimeout(function() {
-                    messageElement.innerHTML = loveMessages[randomIndex];
-                    messageElement.style.opacity = '1';
-                }, 300);
+        // رسائل متغيرة
+        const loveMessages = ["💖 أنتِ أجمل شيء حصل في حياتي 💖","💗 كل يوم بحبك أكتر من اللي قبله 💗","💓 وجودك في حياتي هو أجمل هدية 💓","❤️ بحبك لدرجة إني مش قادر أوصفها ❤️"];
+        setInterval(()=>{
+            const msgDiv = document.getElementById('love-message');
+            if(msgDiv && document.getElementById('memories-page')?.classList.contains('active')){
+                const rand = Math.floor(Math.random() * loveMessages.length);
+                msgDiv.style.opacity = '0';
+                setTimeout(()=>{
+                    msgDiv.innerHTML = loveMessages[rand];
+                    msgDiv.style.opacity = '1';
+                },300);
             }
-        }, 8000);
-    </script>
+        },7000);
+
+        // الثلج
+        function startSnowfall(){
+            const container = document.getElementById('snowfall');
+            if(!container) return;
+            setInterval(()=>{
+                const flake = document.createElement('div');
+                flake.className = 'snowflake';
+                flake.innerHTML = ['❤️','💖','💗','💓'][Math.floor(Math.random()*4)];
+                flake.style.left = Math.random()*100 + '%';
+                flake.style.fontSize = 0.8 + Math.random()*1 + 'rem';
+                flake.style.animationDuration = 4 + Math.random()*5 + 's';
+                flake.style.opacity = 0.4+Math.random()*0.5;
+                container.appendChild(flake);
+                setTimeout(()=>flake.remove(),9000);
+            },280);
+        }
+
+        window.startConfetti = function(count=35){
+            const container = document.getElementById('confetti-container');
+            if(!container) return;
+            for(let i=0;i<count;i++){
+                const conf = document.createElement('div');
+                conf.className = 'confetti';
+                conf.style.left = Math.random()*100+'%';
+                conf.style.backgroundColor = ['#ff6b6b','#ff8c8c','#ffb6c1','#ff69b4'][Math.floor(Math.random()*4)];
+                conf.style.width = 5+Math.random()*10+'px';
+                conf.style.height = 8+Math.random()*12+'px';
+                conf.style.animationDuration = 1.5+Math.random()*3+'s';
+                container.appendChild(conf);
+                setTimeout(()=>conf.remove(),4500);
+            }
+        };
+
+        function createFloatingHeart(btn){
+            const heartDiv = document.createElement('div');
+            heartDiv.innerHTML = '❤️';
+            heartDiv.style.position = 'fixed';
+            heartDiv.style.left = btn.getBoundingClientRect().left + btn.offsetWidth/2 + 'px';
+            heartDiv.style.top = btn.getBoundingClientRect().top + 'px';
+            heartDiv.style.fontSize = '1.8rem';
+            heartDiv.style.pointerEvents = 'none';
+            heartDiv.style.zIndex = '2000';
+            heartDiv.style.animation = 'floatHeart 0.9s ease-out forwards';
+            document.body.appendChild(heartDiv);
+            setTimeout(()=>heartDiv.remove(),900);
+        }
+        const floatKey = document.createElement('style');
+        floatKey.textContent = '@keyframes floatHeart { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-90px) scale(1.4); opacity: 0; } }';
+        document.head.appendChild(floatKey);
+
+        window.navigateTo = function(pageId){
+            document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+            const target = document.getElementById(pageId);
+            if(target){
+                target.classList.add('active');
+                if(pageId === 'ending-page'){
+                    startConfetti(45);
+                    setTimeout(()=>{
+                        const ids = ['ending-title','ending-text-1','ending-text-2','ending-text-3','christmas-msg','replay-btn','designer-text'];
+                        ids.forEach((id,idx)=>{
+                            const el = document.getElementById(id);
+                            if(el){
+                                setTimeout(()=>{ el.style.transition='opacity 0.7s'; el.style.opacity='1'; }, idx*280);
+                            }
+                        });
+                    },200);
+                }
+                window.scrollTo(0,0);
+            }
+        };
+        window.replay = function(){
+            document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+            const first = document.getElementById('letter-page');
+            if(first){
+                first.classList.add('active');
+                const tree = document.getElementById('tree-section');
+                const letterSec = document.getElementById('letter-section');
+                if(tree) tree.classList.remove('hidden');
+                if(letterSec) letterSec.classList.add('hidden');
+            }
+            window.scrollTo(0,0);
+        };
+
+        initCarousel();
+        startLoveTimer();
+        startSnowfall();
+    })();
+</script>
 </body>
 </html>
