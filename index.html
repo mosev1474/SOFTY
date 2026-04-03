@@ -449,18 +449,18 @@
         <div class="wish-item"><span class="wish-icon">🫦</span><span class="wish-text">وبموت فيكي</span></div>
     </div>
 
-    <button class="btn" onclick="navigateTo('ending-page')">التالي 💖</button>
+    <button class="btn" onclick="navigateTo('ending-page')">دوسي هنا 💖</button>
 </div>
 
 <!-- صفحة النهاية -->
 <div id="ending-page" class="page">
-    <h1 class="ending-title" id="ending-title" style="opacity: 0;">💖 ميراج حبيبتي 💖</h1>
-    <p class="ending-text" id="ending-text-1" style="opacity: 0;">مهما الدنيا ودتنا فين...</p>
-    <p class="ending-text" id="ending-text-2" style="opacity: 0;">هتفضلي إنتي أغلى حد عندي،</p>
-    <p class="ending-text" id="ending-text-3" style="opacity: 0;">أماني وبيتي اللي برتاح فيه 💗</p>
+    <h1 class="ending-title" id="ending-title" style="opacity: 0;">💖 حسناء روح قلبي  💖</h1>
+    <p class="ending-text" id="ending-text-1" style="opacity: 0;">عارف ان الفتره دي مبقناش بنتكلم...</p>
+    <p class="ending-text" id="ending-text-2" style="opacity: 0;">بس خليكي عارفه ان مهما الايام عدت،</p>
+    <p class="ending-text" id="ending-text-3" style="opacity: 0;">هفضل دايما بشتقالك وببقي عايزك 💗</p>
     <div class="christmas-message" id="christmas-msg" style="opacity: 0;"><p>💕 I Love You, My Love 💕</p></div>
     <button class="btn btn-red" id="replay-btn" style="opacity: 0; max-width: 200px;" onclick="replay()">🔄 من البداية</button>
-    <p class="designer-text" id="designer-text" style="opacity: 0;">💗 Designed with love by Loly 💗</p>
+    <p class="designer-text" id="designer-text" style="opacity: 0;">💗 Designed by : MOsEV 💗</p>
 </div>
 
 <script>
@@ -546,14 +546,14 @@
         function startLoveTimer(){
             const timerEl = document.getElementById('love-timer');
             if(!timerEl) return;
-            const startDate = new Date(2024,0,1);
+            const startDate = new Date(2025,11,9);
             function update(){
                 const now = new Date();
                 const diff = now - startDate;
                 const days = Math.floor(diff/(1000*60*60*24));
                 const hours = Math.floor((diff % 86400000)/3600000);
                 const minutes = Math.floor((diff % 3600000)/60000);
-                timerEl.innerHTML = `💖 ${days} يوم ❤️ ${hours} ساعة 💗 ${minutes} دقيقة من الحب 💖`;
+                timerEl.innerHTML = `💖 ${days} يوم ❤️ ${hours} ساعة 💗 ${minutes} دقيقة  💖`;
             }
             update();
             if(loveTimerInterval) clearInterval(loveTimerInterval);
@@ -561,7 +561,7 @@
         }
 
         // رسائل متغيرة
-        const loveMessages = ["💖 أنتِ أجمل شيء حصل في حياتي 💖","💗 كل يوم بحبك أكتر من اللي قبله 💗","💓 وجودك في حياتي هو أجمل هدية 💓","❤️ بحبك لدرجة إني مش قادر أوصفها ❤️"];
+const loveMessages = ["انتي اجمل نعمه ربنا بعتهالي يحسونه 🫶🏻","بتوحشيني فشخ علفكرا 🫦😍","بموت في دباديبك 😉♥️"];
         setInterval(()=>{
             const msgDiv = document.getElementById('love-message');
             if(msgDiv && document.getElementById('memories-page')?.classList.contains('active')){
