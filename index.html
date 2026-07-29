@@ -15,7 +15,8 @@
 
         body {
             min-height: 100vh;
-            background: linear-gradient(145deg, #2b0b1a 0%, #4a1528 100%);
+            background: radial-gradient(ellipse at top, #1a0a12 0%, #050505 70%),
+                        linear-gradient(145deg, #0a0a0a 0%, #150a12 100%);
             font-family: 'Tajawal', sans-serif;
             overflow-x: hidden;
             display: flex;
@@ -23,6 +24,41 @@
             align-items: center;
             padding: 20px;
             position: relative;
+        }
+
+        /* طبقة تشويش/غبار قديم فوق الموقع بالكامل */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 998;
+            background-image:
+                repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 3px);
+            mix-blend-mode: overlay;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 997;
+            box-shadow: inset 0 0 180px rgba(0,0,0,0.85);
+        }
+
+        /* تأثير التعليق/التقطيع كأن الموقع فتح بعد فترة طويلة */
+        @keyframes glitchLag {
+            0%, 92%, 100% { transform: translate(0,0); filter: none; opacity: 1; }
+            93% { transform: translate(-2px, 1px); filter: hue-rotate(20deg) brightness(0.8); opacity: 0.85; }
+            94% { transform: translate(2px, -1px); filter: none; opacity: 1; }
+            95% { transform: translate(0,0); filter: brightness(1.3) saturate(0); opacity: 0.6; }
+            96% { transform: translate(-1px, 0); filter: none; opacity: 1; }
+            97% { opacity: 1; }
+            97.5% { opacity: 0.2; }
+            98% { opacity: 1; }
+        }
+        body.lag-freeze {
+            animation: glitchLag 0.5s steps(2, end);
         }
 
         /* الصفحات */
@@ -49,13 +85,13 @@
 
         /* البطاقة الرئيسية */
         .card {
-            background: rgba(255, 248, 245, 0.98);
+            background: rgba(14, 10, 14, 0.96);
             border-radius: 70px 50px 70px 50px;
             padding: 2rem 1.8rem;
-            box-shadow: 0 25px 45px rgba(0,0,0,0.3), inset 0 1px 3px rgba(255,255,255,0.6);
+            box-shadow: 0 25px 45px rgba(0,0,0,0.6), inset 0 1px 3px rgba(255,255,255,0.05);
             position: relative;
             transition: 0.3s;
-            border: 2px solid #ffb7c5;
+            border: 2px solid #4a1030;
         }
 
         .corner-deco {
@@ -96,25 +132,25 @@
             font-family: 'Amiri', serif;
             font-size: 1.6rem;
             font-weight: bold;
-            color: white;
-            text-shadow: 0 0 6px #c70039;
+            color: #eae0e2;
+            text-shadow: 0 0 6px #4a0d1f;
             white-space: nowrap;
-            background: rgba(0,0,0,0.2);
+            background: rgba(0,0,0,0.5);
             padding: 5px 12px;
             border-radius: 40px;
             pointer-events: none;
         }
         @keyframes heartbeat {
-            0% { transform: scale(1); text-shadow: 0 0 0 #ff3366; }
-            50% { transform: scale(1.12); text-shadow: 0 0 25px #ff6699; }
-            100% { transform: scale(1); text-shadow: 0 0 0 #ff3366; }
+            0% { transform: scale(1); text-shadow: 0 0 0 #5c0a1e; }
+            50% { transform: scale(1.12); text-shadow: 0 0 25px #7a0f28; }
+            100% { transform: scale(1); text-shadow: 0 0 0 #5c0a1e; }
         }
         .click-hint {
             text-align: center;
             margin-top: 20px;
-            color: #ffd9e5;
+            color: #c9b8bd;
             font-weight: bold;
-            background: #9e2a4e80;
+            background: #1c0a1480;
             display: inline-block;
             width: auto;
             margin-left: auto;
@@ -122,6 +158,7 @@
             padding: 8px 20px;
             border-radius: 60px;
             backdrop-filter: blur(4px);
+            border: 1px solid #3a1a28;
         }
 
         /* الأضواء */
@@ -138,24 +175,25 @@
             border-radius: 40%;
             animation: glow 1s infinite alternate;
         }
-        .light.red { background: #ff3366; box-shadow: 0 0 6px red; }
-        .light.pink { background: #ff99bb; box-shadow: 0 0 8px #ff99bb; }
-        .light.hotpink { background: #ff69b4; box-shadow: 0 0 10px hotpink; }
+        .light.red { background: #6b0f24; box-shadow: 0 0 6px #6b0f24; }
+        .light.pink { background: #3a2038; box-shadow: 0 0 8px #3a2038; }
+        .light.hotpink { background: #4a0d1f; box-shadow: 0 0 10px #4a0d1f; }
         @keyframes glow {
-            0% { opacity: 0.3; transform: scaleY(0.8);}
-            100% { opacity: 1; transform: scaleY(1.2);}
+            0% { opacity: 0.25; transform: scaleY(0.8);}
+            100% { opacity: 0.9; transform: scaleY(1.2);}
         }
 
         .letter-text {
             font-family: 'Amiri', serif;
             font-size: 1.2rem;
             line-height: 1.8;
-            background: #fff9f2;
+            background: #120a10;
             padding: 20px;
             border-radius: 48px;
-            color: #4a1e2c;
+            color: #cfc0c5;
             margin: 20px 0;
             text-align: center;
+            border: 1px solid #2a1420;
         }
 
         /* زر القلب والعداد */
@@ -172,7 +210,7 @@
             filter: drop-shadow(0 4px 6px #ff99bb);
         }
         .heart-btn:active { transform: scale(0.9); }
-        .heart-count { font-size: 1rem; color: #c95a7a; font-weight: bold; margin-top: 5px; }
+        .heart-count { font-size: 1rem; color: #8a5f6c; font-weight: bold; margin-top: 5px; }
 
         /* الفيديو - تم اصلاح الرابط */
         .video-container {
@@ -198,11 +236,12 @@
         .carousel {
             width: 100%;
             aspect-ratio: 1 / 1;
-            background: #f7cad0;
+            background: #0f0a10;
             border-radius: 40px;
             overflow: hidden;
             margin: 20px 0;
-            box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.5);
+            border: 1px solid #2a1420;
         }
         .carousel img {
             width: 100%;
@@ -219,32 +258,35 @@
         .dot {
             width: 12px;
             height: 12px;
-            background: #ffafc0;
+            background: #3a2030;
             border-radius: 50%;
             cursor: pointer;
             transition: 0.2s;
         }
         .dot.active {
-            background: #e6395e;
+            background: #6b0f24;
             width: 28px;
             border-radius: 12px;
         }
 
         .love-timer {
-            background: #ffd9e2;
+            background: #150a12;
             text-align: center;
             padding: 12px;
             border-radius: 60px;
             font-weight: bold;
-            color: #b13b5c;
+            color: #a98b93;
             margin: 15px 0;
+            border: 1px solid #2a1420;
         }
         .love-message-box {
-            background: #ffedf2;
+            background: #100910;
             border-radius: 45px;
             padding: 18px;
             text-align: center;
             margin: 15px 0;
+            border: 1px solid #241220;
+            color: #cbb9be;
         }
         .section-divider {
             display: flex;
@@ -252,13 +294,16 @@
             gap: 12px;
             font-size: 1.8rem;
             margin: 15px 0;
+            filter: grayscale(0.6) brightness(0.7);
         }
         .quote-text {
             font-size: 1.3rem;
-            background: #ffdce6;
+            background: #150a12;
             padding: 18px;
             border-radius: 45px;
             font-family: 'Pacifico', cursive;
+            color: #b9a3ab;
+            border: 1px solid #2a1420;
         }
         .facts-section {
             display: flex;
@@ -268,27 +313,33 @@
             margin: 20px 0;
         }
         .fact-bubble {
-            background: #ffeef4;
+            background: #150a12;
             padding: 12px 18px;
             border-radius: 60px;
             display: flex;
             align-items: center;
             gap: 8px;
             font-weight: bold;
+            color: #cbb9be;
+            border: 1px solid #2a1420;
         }
         .wishes-section {
-            background: rgba(255, 220, 230, 0.7);
+            background: rgba(20, 8, 16, 0.8);
             border-radius: 55px;
             padding: 20px;
             margin: 20px 0;
             text-align: center;
+            border: 1px solid #2a1420;
+            color: #cbb9be;
         }
         .wish-item {
-            background: white;
+            background: #0d070c;
             border-radius: 45px;
             padding: 10px;
             margin: 12px 0;
             animation: fadeSlide 0.6s both;
+            color: #cbb9be;
+            border: 1px solid #241220;
         }
         @keyframes fadeSlide {
             from { opacity: 0; transform: translateX(-20px);}
@@ -297,20 +348,21 @@
 
         /* أزرار */
         .btn {
-            background: linear-gradient(95deg, #ff6f91, #ff9eb5);
+            background: linear-gradient(95deg, #3a0d1c, #5c1526);
             border: none;
             padding: 12px 30px;
             border-radius: 50px;
             font-size: 1.2rem;
             font-weight: bold;
-            color: white;
+            color: #d8c6cb;
             cursor: pointer;
             transition: 0.2s;
             margin: 20px auto;
             display: block;
-            box-shadow: 0 6px 0 #9e2a4e;
+            box-shadow: 0 6px 0 #1c0810;
+            border: 1px solid #2a1420;
         }
-        .btn:active { transform: translateY(2px); box-shadow: 0 3px 0 #9e2a4e;}
+        .btn:active { transform: translateY(2px); box-shadow: 0 3px 0 #1c0810;}
 
         /* نهاية الصفحة */
         .ending-title, .ending-text {
@@ -318,19 +370,22 @@
             margin: 20px;
             font-size: 1.8rem;
             font-weight: bold;
+            color: #cbb9be;
         }
         .christmas-message {
-            background: #e6395e30;
+            background: #1c0a1450;
             text-align: center;
             font-size: 1.5rem;
             padding: 25px;
             border-radius: 50px;
             margin: 30px 0;
+            border: 1px solid #2a1420;
+            color: #cbb9be;
         }
         .designer-text {
             text-align: center;
             margin-top: 30px;
-            color: #ffbfcf;
+            color: #6e5860;
         }
 
         /* ثلج و كونفيتي */
@@ -345,7 +400,7 @@
         }
         .snowflake {
             position: absolute;
-            color: #ffc0d0;
+            color: #4a3a42;
             animation: fall linear forwards;
         }
         @keyframes fall {
@@ -355,7 +410,7 @@
         .confetti {
             position: absolute;
             top: -20px;
-            background: red;
+            background: #3a0d1c;
             transform: rotate(25deg);
             animation: confettiFall linear forwards;
         }
@@ -367,6 +422,71 @@
             .letter-text { font-size: 1rem; }
             .heart-beat { font-size: 8rem; }
         }
+
+        /* عش العنكبوت */
+        .cobweb {
+            position: fixed;
+            width: 160px;
+            height: 160px;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0.55;
+        }
+        .cobweb.top-left-web { top: -10px; left: -10px; }
+        .cobweb.top-right-web { top: -10px; right: -10px; transform: scaleX(-1); }
+
+        /* العنكبوت اللي بينزل بخيطه بين الحين والتاني */
+        .spider-thread {
+            position: fixed;
+            top: -40px;
+            left: 38px;
+            width: 1px;
+            height: 0;
+            background: rgba(200,200,200,0.35);
+            z-index: 1001;
+            pointer-events: none;
+        }
+        .spider {
+            position: absolute;
+            bottom: -14px;
+            left: -13px;
+            font-size: 1.6rem;
+            filter: drop-shadow(0 0 4px rgba(0,0,0,0.8));
+            animation: spiderSway 2.5s ease-in-out infinite;
+        }
+        @keyframes spiderSway {
+            0%, 100% { transform: rotate(-6deg); }
+            50% { transform: rotate(6deg); }
+        }
+        @keyframes spiderDrop {
+            0% { height: 0; }
+            35% { height: 220px; }
+            70% { height: 220px; }
+            100% { height: 0; }
+        }
+        .spider-thread.dropping {
+            animation: spiderDrop 9s ease-in-out infinite;
+        }
+
+        /* حشرة صغيرة بتمشي على جنب الشاشة بين الحين والتاني */
+        .crawling-bug {
+            position: fixed;
+            bottom: 6px;
+            left: -30px;
+            font-size: 1.1rem;
+            z-index: 1001;
+            pointer-events: none;
+            opacity: 0.85;
+            animation: bugCrawl 22s linear infinite;
+            animation-delay: 4s;
+        }
+        @keyframes bugCrawl {
+            0% { left: -30px; transform: scaleX(1) translateY(0); }
+            48% { left: 104%; transform: scaleX(1) translateY(-2px); }
+            50% { left: 104%; transform: scaleX(-1) translateY(0); }
+            98% { left: -30px; transform: scaleX(-1) translateY(-2px); }
+            100% { left: -30px; transform: scaleX(1) translateY(0); }
+        }
     </style>
 </head>
 <body>
@@ -374,10 +494,45 @@
 <div id="snowfall"></div>
 <div id="confetti-container"></div>
 
+<!-- ديكور: عش عنكبوت وعنكبوت وحشرة -->
+<svg class="cobweb top-left-web" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="rgba(220,220,220,0.5)" stroke-width="1" fill="none">
+        <path d="M0,0 L160,0"/>
+        <path d="M0,0 L0,160"/>
+        <path d="M0,0 L60,60"/>
+        <path d="M0,0 L100,25"/>
+        <path d="M0,0 L25,100"/>
+        <path d="M0,0 L140,140"/>
+        <path d="M60,60 Q40,20 100,25"/>
+        <path d="M100,25 Q120,60 140,140"/>
+        <path d="M140,140 Q80,120 25,100"/>
+        <path d="M25,100 Q10,50 60,60"/>
+        <path d="M30,25 Q20,10 55,12"/>
+        <path d="M55,12 Q75,20 90,15"/>
+        <path d="M90,15 Q110,30 118,55"/>
+        <path d="M118,55 Q125,90 138,105"/>
+    </g>
+</svg>
+<svg class="cobweb top-right-web" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="rgba(220,220,220,0.4)" stroke-width="1" fill="none">
+        <path d="M0,0 L160,0"/>
+        <path d="M0,0 L0,160"/>
+        <path d="M0,0 L60,60"/>
+        <path d="M0,0 L100,25"/>
+        <path d="M0,0 L25,100"/>
+        <path d="M60,60 Q40,20 100,25"/>
+        <path d="M25,100 Q10,50 60,60"/>
+    </g>
+</svg>
+<div class="spider-thread dropping">
+    <span class="spider">🕷️</span>
+</div>
+<div class="crawling-bug">🪲</div>
+
 <!-- الصفحة الأولى القلب -->
 <div id="letter-page" class="page active">
     <div id="tree-section">
-        <p style="font-family: 'Amiri', serif; font-size: 1.5rem; color: #ffb6c1; text-align:center; margin-bottom: 1.5rem;">❤️ دوسي ع القلب يبت ❤️</p>
+        <p style="font-family: 'Amiri', serif; font-size: 1.5rem; color: #a98b93; text-align:center; margin-bottom: 1.5rem;">❤️ دوسي ع القلب يبت ❤️</p>
         <div class="heart-container" id="love-heart">
             <div class="giant-heart">
                 <div class="heart-beat">❤️</div>
@@ -403,7 +558,7 @@
                 انا عمري ما حبيت حد زي ما حبيتك ولا كان في دماغي الحب ومكانش في حساباتي اني احب بصراحة بس أما شوفتك وعرفتك لقيت نفسي بحبك من غير ما أفكر مرة ولا اتنين اكتر حاجة مهمة في حياتي هي انتي مش فارق معايا حد في الدنيا غيرك وجودك كلامك نظرتك ليا بس هو ده اللي فارق معايا غير كدا مفيش حاجة في الدنيا تهمني ومستعد اخسر اي حاجة في الدنيا بس تبقي وتفضلي موجودة معايا انتي وحشتيني كل حاجة بينا وحشتني صوتك ضحكتك كل حاجة بتفاصيلها وحشتني اتمني متزعليش مني على اي حاجة عملتها واتمني الأيام الجاية نرجع زي الأول وأحسن انا عاوز أصلح كل حاجة وحشة عملتها ليكي مش عايز اكون في يوم سبب اني اخليكي زعلانه . وكل لحظة جمبك بتساوي الدنيا بالنسبلي انا بحبك وعمري ما حبيت قبلك ولا هيبقي في بعدك ❤️
             </p>
             <div class="heart-counter">
-                <p style="color: #ffb6c1;">💗 دوسي ع القلب يبت 💗</p>
+                <p style="color: #a98b93;">💗 دوسي ع القلب يبت 💗</p>
                 <button class="heart-btn" id="heart-btn">❤️</button>
                 <p class="heart-count"><span id="heart-count">0</span> Hearts</p>
             </div>
@@ -414,7 +569,7 @@
 
 <!-- صفحة الذكريات مع الفيديو المصلح -->
 <div id="memories-page" class="page">
-    <h1 class="memories-title" style="text-align:center; color:#ffe2eb;">💗 MY SOUL 💗</h1>
+    <h1 class="memories-title" style="text-align:center; color:#cbb9be;">💗 MY SOUL 💗</h1>
 
     <!-- الرابط تم تعديله ليصبح embed يعمل 100% -->
     <div class="video-container">
@@ -660,6 +815,15 @@ const loveMessages = ["انتي اجمل نعمه ربنا بعتهالي يحس
         initCarousel();
         startLoveTimer();
         startSnowfall();
+
+        // إحساس ان الموقع كان مقفول من زمن وبيعلق شوية بين الحين والتاني
+        function triggerLagFreeze(){
+            document.body.classList.remove('lag-freeze');
+            void document.body.offsetWidth; // اعادة تشغيل الأنيميشن
+            document.body.classList.add('lag-freeze');
+            setTimeout(()=> document.body.classList.remove('lag-freeze'), 550);
+        }
+        setInterval(triggerLagFreeze, 9000 + Math.random()*6000);
     })();
 </script>
 </body>
